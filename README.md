@@ -7,6 +7,7 @@ If you're interested to know how `react-router-dom` is implemented, this repo wi
 #### Syntax
 
 ```jsx
+//Define Routes
 import { BrowserRouter, Route, Redirect } from './my-react-router';
 
 <BrowserRouter>
@@ -15,6 +16,22 @@ import { BrowserRouter, Route, Redirect } from './my-react-router';
   <Route path="/home" component={App} />
   <Route path="/contact" component={Contact} />
 </BrowserRouter>;
+```
+
+```jsx
+//Inside Component. `Link` and `props.history`
+import { Link } from './my-react-router';
+
+function Home(props) {
+  return (
+    <div>
+      <button onClick={() => props.history.push('/login')}>
+        Login Page via click
+      </button>
+      <Link to={'/login'}>Login page vai link</Link>
+    </div>
+  );
+}
 ```
 
 #### Code
