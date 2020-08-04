@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from './my-react-router';
 
-export function App(props) {
+export function Home(props) {
   return (
     <div style={{ background: 'antiquewhite', padding: 10 }}>
       <div> Yay! This is Home Page</div>

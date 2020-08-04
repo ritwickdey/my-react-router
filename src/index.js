@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App, Login, Contact } from './App';
+import { Home, Login, Contact } from './component';
 import { BrowserRouter, Route, Redirect } from './my-react-router';
 
-const Routes = (props) => {
+const App = (props) => {
   return (
     <div>
       <BrowserRouter>
         <Redirect path="/" to="/login" />
         <Route path="/login" component={Login} />
-        <Route path="/home" component={App} />
+        <Route path="/home" component={Home} />
         <Route path="/contact" component={Contact} />
       </BrowserRouter>
     </div>
@@ -18,7 +18,7 @@ const Routes = (props) => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Routes />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
