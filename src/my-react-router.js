@@ -9,7 +9,7 @@ import React, {
 
 const __RouterContext = createContext(null);
 
-const RouterConectProvider = __RouterContext.Provider;
+const RouterCtxProvider = __RouterContext.Provider;
 
 const history = createBrowserHistory();
 
@@ -32,7 +32,7 @@ export function BrowserRouter(props) {
   }, [ctxValue]);
 
   return (
-    <RouterConectProvider value={ctxValue}>{matchedChild}</RouterConectProvider>
+    <RouterCtxProvider value={ctxValue}>{matchedChild}</RouterCtxProvider>
   );
 }
 
