@@ -36,7 +36,7 @@ function Home(props) {
 
 #### Code
 
-[src/my-react-route.js](src/my-react-router.js) _(less than 100 lines)_
+[src/lib/my-react-route.js](src/lib/my-react-router.js) _(less than 100 lines)_
 
 <br>
 

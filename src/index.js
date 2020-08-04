@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Home, Login, Contact } from './component';
-import { BrowserRouter, Route, Redirect } from './my-react-router';
+import { Home, Login, Contact } from './components';
+import { BrowserRouter, Route, Redirect } from './lib/my-react-router';
 
 const App = (props) => {
   return (
@@ -16,9 +16,4 @@ const App = (props) => {
   );
 };
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));

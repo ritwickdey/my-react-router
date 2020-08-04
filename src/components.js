@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from './my-react-router';
+import { Link } from './lib/my-react-router';
 
 export function Home(props) {
   return (
