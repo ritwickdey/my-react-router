@@ -1,10 +1,11 @@
+/*eslint-disable react-hooks/exhaustive-deps*/
 import React, {
   createContext,
   useMemo,
   useContext,
   useState,
   useEffect,
-} from "react";
+} from 'react';
 
 const __RouterContext = createContext(null);
 
@@ -14,29 +15,24 @@ const history = createBrowserHistory();
 
 export function BrowserRouter(props) {
   const [location, setLocation] = useState(() => ({ ...window.location }));
+  const [ctxValue, setCtxValue] = useState(null);
 
-  useEffect(() => {
-    const unsubscibe = history.listen((location) => setLocation(location));
-    return () => unsubscibe();
-  }, []);
+  useEffect(() => history.listen(setLocation), []);
 
-  const values = useMemo(() => {
-    return {
-      history,
-      location,
-    };
-  }, [location]);
+  useEffect(() => setCtxValue({ history, location }), [location]);
 
   const matchedChild = useMemo(() => {
+    if (!ctxValue) return null;
+    const path = ctxValue.location.pathname.toUpperCase();
     const child = props.children.find(
-      (child) => child.props.path === values.location.pathname
+      (child) => child.props.path.toUpperCase() === path
     );
 
     return child || null;
-  }, [values]);
+  }, [ctxValue]);
 
   return (
-    <RouterConectProvider value={values}>{matchedChild}</RouterConectProvider>
+    <RouterConectProvider value={ctxValue}>{matchedChild}</RouterConectProvider>
   );
 }
 
@@ -60,16 +56,28 @@ export function Link(props) {
     </a>
   );
 }
+export function Redirect(props) {
+  const { to } = props;
+  const route = useContext(__RouterContext);
+
+  useEffect(() => {
+    route.history.push(to);
+  }, []);
+
+  return null;
+}
 
 function createBrowserHistory() {
   const listeners = [];
 
-  window.addEventListener("popstate", () => {
+  function popstateLister() {
     const pathname = window.location.pathname;
-    tellAllListerThatRouteChanged(pathname);
-  });
+    broadcastToListers(pathname);
+  }
 
-  function tellAllListerThatRouteChanged(pathname) {
+  window.addEventListener('popstate', popstateLister);
+
+  function broadcastToListers(pathname) {
     const newLocation = { ...window.location, pathname };
     listeners.forEach((listen) => {
       listen(newLocation);
@@ -79,12 +87,16 @@ function createBrowserHistory() {
   return {
     push: (pathname) => {
       window.history.pushState(null, null, pathname);
-      tellAllListerThatRouteChanged(pathname);
+      broadcastToListers(pathname);
     },
 
     listen: (listener) => {
       listeners.push(listener);
       return () => listeners.filter((l) => l !== listener);
+    },
+
+    destroy: () => {
+      window.removeEventListener('popstate', popstateLister);
     },
   };
 }
