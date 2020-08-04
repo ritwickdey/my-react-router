@@ -1,10 +1,10 @@
-#### About:
+#### About
 
 This is not `react-router-dom` (aka `react-router`) tutorial. It's a minimal version of `react-router-dom`.
 
 If you're interested to know how `react-router-dom` is implemented, this repo will help you to understand how it actually works.
 
-#### Syntax:
+#### Syntax
 
 ```jsx
 import { BrowserRouter, Route, Redirect } from './my-react-router';
@@ -17,7 +17,7 @@ import { BrowserRouter, Route, Redirect } from './my-react-router';
 </BrowserRouter>;
 ```
 
-#### Code:
+#### Code
 
 [src/my-react-route.js](src/my-react-router.js) _(less than 100 lines)_
 
